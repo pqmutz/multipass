@@ -2765,6 +2765,7 @@ TEST_F(ClientAlias, execute_existing_alias)
 {
     populate_db_file(AliasesVector{{"some_alias", {"some_instance", "some_command"}}});
 
+    EXPECT_CALL(mock_daemon, info(_, _, _)).WillOnce(info_function);
     EXPECT_CALL(mock_daemon, ssh_info(_, _, _));
 
     EXPECT_EQ(send_command({"some_alias"}), mp::ReturnCode::Ok);
@@ -2785,6 +2786,7 @@ TEST_F(ClientAlias, execute_alias_with_arguments)
 {
     populate_db_file(AliasesVector{{"some_alias", {"some_instance", "some_command"}}});
 
+    EXPECT_CALL(mock_daemon, info(_, _, _)).WillOnce(info_function);
     EXPECT_CALL(mock_daemon, ssh_info(_, _, _));
 
     EXPECT_EQ(send_command({"some_alias", "some_argument"}), mp::ReturnCode::Ok);
